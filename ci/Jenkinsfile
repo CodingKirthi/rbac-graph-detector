@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11'
-            reuseNode true
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -13,11 +8,13 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Setup Python') {
             steps {
                 sh '''
-                    python --version
-                    pip install --upgrade pip
+                    python3 --version
+                    python3 -m venv .venv
+                    . .venv/bin/activate
+                    python -m pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
             }
@@ -26,6 +23,7 @@ pipeline {
         stage('Run RBAC Analysis') {
             steps {
                 sh '''
+                    . .venv/bin/activate
                     python -m src.main batch scenarios --out results
                 '''
             }
