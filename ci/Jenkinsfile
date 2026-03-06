@@ -1,0 +1,40 @@
+pipeline {
+    agent {
+        docker {
+            image 'python:3.11'
+        }
+    }
+
+    stages {
+
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    python --version
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
+            }
+        }
+
+        stage('Run RBAC Analysis') {
+            steps {
+                sh '''
+                    python -m src.main batch scenarios --out results
+                '''
+            }
+        }
+
+        stage('Archive Results') {
+            steps {
+                archiveArtifacts artifacts: 'results/**', fingerprint: true
+            }
+        }
+    }
+}
