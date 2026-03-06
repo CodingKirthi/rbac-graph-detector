@@ -1,0 +1,9 @@
+[project]
+name = "rbac-graph-detector"
+version = "0.1.0"
+description = "Static analysis of Kubernetes RBAC YAML to detect risky permissions and privilege escalation paths."
+requires-python = ">=3.10"
+dependencies = ["pyyaml>=6.0", "networkx>=3.2"]
+
+[project.scripts]
+rbac-graph-detector = "src.main:main"

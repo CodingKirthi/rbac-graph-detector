@@ -1,0 +1,4 @@
+scenario,expected_overall_severity,detected_overall_severity,correct,finding_count
+s01_safe_readonly,SAFE,SAFE,True,0
+s03_secrets_read,HIGH,HIGH,True,1
+s05_pod_exec,HIGH,HIGH,True,1

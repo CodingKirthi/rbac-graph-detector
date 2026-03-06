@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "inputs": [
+      "scenarios\\s05_pod_exec\\manifests.yaml"
+    ],
+    "role_count": 1,
+    "binding_count": 1,
+    "node_count": 3,
+    "edge_count": 2,
+    "generated_at": "2026-03-06T21:13:15.595592Z",
+    "overall_severity": "HIGH",
+    "finding_count": 1
+  },
+  "findings": [
+    {
+      "subject_id": "sa:dev:exec-sa",
+      "severity": "HIGH",
+      "title": "HIGH RBAC exposure via pod-exec",
+      "reason": "Can exec into pods",
+      "evidence_path": [
+        "sa:dev:exec-sa",
+        "rolebinding:dev:bind-exec",
+        "role:dev:pod-exec"
+      ],
+      "matched_rules": [
+        {
+          "match": "pods_exec",
+          "rule": {
+            "apiGroups": [
+              ""
+            ],
+            "resources": [
+              "pods/exec"
+            ],
+            "verbs": [
+              "create"
+            ],
+            "resourceNames": [],
+            "nonResourceURLs": []
+          }
+        }
+      ]
+    }
+  ]
+}
