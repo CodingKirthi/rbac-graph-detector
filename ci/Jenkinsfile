@@ -29,6 +29,16 @@ pipeline {
             }
         }
 
+         stage('Security Gate') {
+            steps {
+                sh '''
+                    . .venv/bin/activate
+                    python src/ci_gate.py
+                '''
+            }
+        }
+
+
         stage('Archive Results') {
             steps {
                 archiveArtifacts artifacts: 'results/**', fingerprint: true
